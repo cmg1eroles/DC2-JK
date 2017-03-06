@@ -84,6 +84,39 @@ public class CalendarController {//extends Observer {
 			view.refreshCalendar(monthToday, yearToday);
 		}
 	}
+
+	class btnCreate_Action implements ActionListener {
+		public void actionPerformed (ActionEvent e) {
+			JButton b = (JButton)e.getSource();
+			JPanel nPanel = PanelFactory.determine(b.getText(),CalendarController.this);
+			//System.out.print("Address: " + panel.toString());
+			view.addPaneltoPane(nPanel);
+		}
+	}
+
+	public void addEventTask(String name, String hourStart, String minStart,
+				String hourEnd, String minEnd, Type type) {
+		String day = view.getDaylbl(),
+					   month = view.getMonthlbl(), 
+					   year = view.getCmbYr().toString();
+		int equivMthNum = 0;
+		for(Months m: Months.values()) {
+			if(m.toString().equals(month))
+				equivMthNum = m.toInt();
+		}
+
+		GregorianCalendar testStartDate = new GregorianCalendar(Integer.parseInt(year),equivMthNum,
+								Integer.parseInt(day), Integer.parseInt(hourStart), Integer.parseInt(minStart));
+		GregorianCalendar testEndDate = new GregorianCalendar(Integer.parseInt(year),equivMthNum,
+								Integer.parseInt(day), Integer.parseInt(hourEnd), Integer.parseInt(minEnd));
+		
+		Task newEvent = null;
+		if(type == Type.EVENT)
+			newEvent = new Task(Type.EVENT, testStartDate, testEndDate, name, "blue");
+		model.addEvent(newEvent);
+	}
+
+
 /*	class btnEvent_Action implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
 			if (view.getDaylbl() != "null" && view.getDaylbl() != "") {
