@@ -9,8 +9,8 @@ public class Task {
 		endDateTime = endDT;
 	}
 
-	public Type getStrType() {
-		return type;
+	public String getStrType() {
+		return type.toString();
 	}
 
 	public String getStrColor() {
@@ -55,6 +55,20 @@ public class Task {
 
 	public int getEndMinute() {
 		return endDateTime.get(GregorianCalendar.MINUTE);
+	}
+
+	public boolean findEventMY(int year, int month) {
+		if(month == getMonth() && year == getYear())
+			return true;
+		return false;
+	}
+
+	public boolean findEvent(GregorianCalendar date) {
+		if((date.get(GregorianCalendar.MONTH) == getMonth() &&
+			date.get(GregorianCalendar.DATE) == getDay() &&
+			date.get(GregorianCalendar.YEAR) == getYear()))
+			return true;
+		return false;
 	}
 
 	public boolean checkOverlap(Task cmpDT) {

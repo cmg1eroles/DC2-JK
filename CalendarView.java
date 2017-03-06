@@ -63,8 +63,16 @@ public class CalendarView {
 		cbTask.setBounds(100, 140, 100, 40);
 	}
 
+	public String getDateToday() {
+		Months[] months = Months.values();
+		GregorianCalendar dateToday = new GregorianCalendar();
+		String dteTdy = "" + months[dateToday.get(GregorianCalendar.MONTH)].toString() + " " + 
+						dateToday.get(GregorianCalendar.DATE) +  ", " + dateToday.get(GregorianCalendar.YEAR);
+		return dteTdy; 
+	}
+
 	public void initViewComponents() {
-		dateLabel = new JLabel("SEPTEMBER 30, 2017");
+		dateLabel = new JLabel(getDateToday());
 		btnToday = new JButton("TODAY");
 		btnDay = new JButton("DAY");
 		btnAgenda = new JButton("AGENDA");
@@ -152,7 +160,7 @@ public class CalendarView {
 	public void setBoundsCalendarComponents() {
 		calendarPanel.setBounds(0, 0, 300, 400);
         monthLabel.setBounds(20, 15, 200, 50);
-        dayLabel.setBounds(110,55,50, 50);
+       // dayLabel.setBounds(110,55,50, 50);
 		cmbYear.setBounds(20, 55, 80, 35);
 		btnPrev.setBounds(180, 50, 45, 40);
 		btnNext.setBounds(225, 50, 45, 40);
@@ -203,17 +211,21 @@ public class CalendarView {
 		btnPrev.addActionListener(controller.new btnPrev_Action());
 		btnNext.addActionListener(controller.new btnNext_Action());
 		cmbYear.addActionListener(controller.new cmbYear_Action());
-		
+		btnToday.addActionListener(controller.new btnToday_Action());
+
 		for (int i = controller.getYear()-100; i <= controller.getYear()+100; i++) {
 			cmbYear.addItem(String.valueOf(i));
 		}
 		refreshCalendar (controller.getMonth(), controller.getYearBound()); 
 	}
 
+	public void setDate(String date) {
+		dateLabel.setText(date);
+	}
+
 	public Object getCmbYr() {
 		return cmbYear.getSelectedItem();
 	}
-
 
 	public String getDaylbl() {
 		return dayLabel.getText();

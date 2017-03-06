@@ -2,7 +2,7 @@ import java.util.*;
 
 public class CalendarModel {//extends Observer{
 	public Iterator getEvents(int year, int month) {
-		ArrayList<Events> eventMonthYear = new ArrayList<Events>();
+		ArrayList<Task> eventMonthYear = new ArrayList<Task>();
 		for(int i=0;i<events.size();i++) {
 			if(events.get(i).findEventMY(year, month)){
 				eventMonthYear.add(events.get(i));
@@ -11,17 +11,17 @@ public class CalendarModel {//extends Observer{
 		return eventMonthYear.iterator();
 	}
 
-	public void addEvent(Events event) {
+	public void addEvent(Task event) {
 		events.add(event);
-		//setState();
+		setState();
 	}
 
-	public void addEvents(ArrayList<Events> event) {
+	public void addEvents(ArrayList<Task> event) {
 		events.addAll(event);
-		//setState();
+		setState();
 	}
 
-/*	public void attachIn(Observer newUser) {
+	public void attachIn(Observer newUser) {
 		observers.add(newUser);
 	}
 
@@ -32,7 +32,7 @@ public class CalendarModel {//extends Observer{
 	}
 
 	public Iterator getState(GregorianCalendar date) {
-		ArrayList<Events> evt = new ArrayList<Events>();
+		ArrayList<Task> evt = new ArrayList<Task>();
 		for(int i=0;i<events.size();i++) {
 			if(events.get(i).findEvent(date)){
 				evt.add(events.get(i));
@@ -42,10 +42,10 @@ public class CalendarModel {//extends Observer{
 		if (evt.size() == 0)
 			return null;
 		return evt.iterator();
-	}*/
+	}
 
 
-	private ArrayList<Events> events = new ArrayList<Events>();
-	//private ArrayList<Observer> observers = new ArrayList<Observer>();
+	private ArrayList<Task> events = new ArrayList<Task>();
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	private CalendarController controller;
 }

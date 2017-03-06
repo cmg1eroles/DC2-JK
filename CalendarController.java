@@ -76,7 +76,14 @@ public class CalendarController {//extends Observer {
 			}
 		}
 	}
-	
+
+	class btnToday_Action implements ActionListener {
+		public void actionPerformed (ActionEvent e) {
+			String dteToday = view.getDateToday();
+			view.setDate(dteToday);
+			view.refreshCalendar(monthToday, yearToday);
+		}
+	}
 /*	class btnEvent_Action implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
 			if (view.getDaylbl() != "null" && view.getDaylbl() != "") {
