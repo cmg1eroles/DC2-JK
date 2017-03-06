@@ -55,7 +55,7 @@ public class CalendarView {
 	}
 
 	public void setVChoicePanel() {
-		vChoicePanel.setBackground(Color.DARK_GRAY);
+		vChoicePanel.setBackground(Color.BLUE);
 		vChoicePanel.setBorder(BorderFactory.createTitledBorder("View"));
 	}
 
@@ -215,7 +215,8 @@ public class CalendarView {
 		btnNext.addActionListener(controller.new btnNext_Action());
 		cmbYear.addActionListener(controller.new cmbYear_Action());
 		btnToday.addActionListener(controller.new btnToday_Action());
-		addTask.addActionListener(controller.new btnCreate_Action());
+		addTask.addActionListener(controller.new btnView_Action());
+		btnDay.addActionListener(controller.new btnView_Action());
 
 		for (int i = controller.getYear()-100; i <= controller.getYear()+100; i++) {
 			cmbYear.addItem(String.valueOf(i));
@@ -245,9 +246,11 @@ public class CalendarView {
 	}
 
 	public void addPaneltoPane(JPanel newpanel) {
-		newpanel.setVisible(true);
-		newpanel.setBounds(300,100,595,795);
-		pane.add(newpanel);
+		//newpanel.setVisible(true);
+		if(temp != null)
+			pane.remove(temp);
+		temp = newpanel;
+		pane.add(temp);
 		pane.repaint();
 	}
 	private CalendarController controller;
@@ -273,7 +276,7 @@ public class CalendarView {
 	/**** View Choice Components ****/
 	private JPanel vChoicePanel;
 	private JCheckBox cbEvent, cbTask;
-	private JPanel temp;
+	private JPanel temp = null;
     /**** Calendar Table Components ***/
 	private JTable calendarTable;
     private DefaultTableModel modelCalendarTable;

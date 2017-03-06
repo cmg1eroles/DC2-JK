@@ -41,6 +41,12 @@ public class CalendarController {//extends Observer {
 		return yearBound;
 	}
 
+	public void changePanel(ActionEvent e) {
+		JButton b = (JButton)e.getSource();
+		JPanel nPanel = PanelFactory.determine(b.getText(),CalendarController.this);
+		view.addPaneltoPane(nPanel);
+	}
+
 	class btnPrev_Action implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
 			if (monthToday == 0) {
@@ -85,13 +91,13 @@ public class CalendarController {//extends Observer {
 		}
 	}
 
-	class btnCreate_Action implements ActionListener {
+	class btnView_Action implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
-			JButton b = (JButton)e.getSource();
-			JPanel nPanel = PanelFactory.determine(b.getText(),CalendarController.this);
-			view.addPaneltoPane(nPanel);
+			changePanel(e);
 		}
 	}
+
+
 
 	public void addNewTask(String name, String hourStart, String minStart,
 						   String hourEnd, String minEnd, Type type) 
