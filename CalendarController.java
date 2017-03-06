@@ -26,7 +26,7 @@ public class CalendarController {//extends Observer {
 	}*/
 
 	public Iterator getEvents(){
-		return model.getEvents(yearToday, monthToday);
+		return model.getTasks(yearToday, monthToday);
 	}
 
 	public int getYear() {
@@ -89,17 +89,20 @@ public class CalendarController {//extends Observer {
 		public void actionPerformed (ActionEvent e) {
 			JButton b = (JButton)e.getSource();
 			JPanel nPanel = PanelFactory.determine(b.getText(),CalendarController.this);
-			//System.out.print("Address: " + panel.toString());
 			view.addPaneltoPane(nPanel);
 		}
 	}
 
-	public void addEventTask(String name, String hourStart, String minStart,
-				String hourEnd, String minEnd, Type type) {
+	public void addNewTask(String name, String hourStart, String minStart,
+						   String hourEnd, String minEnd, Type type) 
+	{
 		String day = view.getDaylbl(),
-					   month = view.getMonthlbl(), 
-					   year = view.getCmbYr().toString();
+			   month = view.getMonthlbl(), 
+			   year = view.getCmbYr().toString();
 		int equivMthNum = 0;
+		int startTotalMinutes = (Integer.parseInt(hourStart) * 6) + Integer.parseInt(minStart);
+		int endTotalMinutes = (Integer.parseInt(hourEnd) * 6) + Integer.parseInt(minEnd);
+
 		for(Months m: Months.values()) {
 			if(m.toString().equals(month))
 				equivMthNum = m.toInt();
@@ -110,10 +113,16 @@ public class CalendarController {//extends Observer {
 		GregorianCalendar testEndDate = new GregorianCalendar(Integer.parseInt(year),equivMthNum,
 								Integer.parseInt(day), Integer.parseInt(hourEnd), Integer.parseInt(minEnd));
 		
-		Task newEvent = null;
-		if(type == Type.EVENT)
-			newEvent = new Task(Type.EVENT, testStartDate, testEndDate, name, "blue");
-		model.addEvent(newEvent);
+		Task newTask = null;
+		if (type == Type.EVENT)
+			newTask = new Task(Type.EVENT, testStartDate, testEndDate, name, "blue");
+		else if (type == Type.TO_DO)
+			newTask = new Task(Type.TO_DO, testStartDate, testEndDate, name, "green");
+
+		if (endTotalMinutes > startTotalMinutes)
+			model.addTask(newTask);
+		else
+			System.out.println("Sorry invalid time!");
 	}
 
 

@@ -21,6 +21,7 @@ public class AddPanel extends PanelFactory {
 		hourEndList = new JComboBox();
 		minStartList = new JComboBox();
 		minEndList = new JComboBox();
+		type = null;
 
 		for(int i=0;i<24;i++) {
 			hourStartList.addItem(String.valueOf(i));
@@ -58,6 +59,7 @@ public class AddPanel extends PanelFactory {
 	}
 
 	private void addListeners() {
+		btnSave.addActionListener(new btnSave_Action());
 		btnDiscard.addActionListener(new btnDiscard_Action());
 		rbTodo.addActionListener(new rbTodo_Action());
 		rbEvent.addActionListener(new rbEvent_Action());
@@ -111,14 +113,24 @@ public class AddPanel extends PanelFactory {
 		}
 	}
 
-	class btnSave_Action implements ActionListener{
+	class btnSave_Action implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
-			if(type == Type.EVENT)
-				controller.addEventTask(name.getText(), 
-					hourStartList.getSelectedItem().toString(),
-					minStartList.getSelectedItem().toString(), 
-					hourEndList.getSelectedItem().toString(),
-					minEndList.getSelectedItem().toString(),type);
+			if (type != null) {
+				String endMinute;
+				if (type == Type.TO_DO) {
+					if (minStartList.getSelectedItem().toString() == "00")
+						endMinute = "30";
+					else
+						endMinute = "00";
+				}
+				else
+					endMinute = minEndList.getSelectedItem().toString();
+
+				controller.addNewTask(name.getText(), hourStartList.getSelectedItem().toString(),
+										minStartList.getSelectedItem().toString(), 
+										hourStartList.getSelectedItem().toString(),
+										endMinute,type);
+			}
 		}
 	}
 

@@ -77,9 +77,6 @@ public class Task {
 		int cmpMinStart = (cmpDT.getStartHour() * 60) + cmpDT.getStartMinute();
 		int cmpMinEnd = (cmpDT.getEndHour() * 60) + cmpDT.getEndMinute();
 
-		System.out.println("BMS = " + baseMinStart + "\nBME = " + baseMinEnd);
-		System.out.println("CMS = " + cmpMinStart + "\nCME = " + cmpMinEnd);
-
 		if ((cmpDT.getMonth() == getMonth()) &&
 			(cmpDT.getDay() == getDay()) &&
 			(cmpDT.getYear() == getYear()))
