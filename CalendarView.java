@@ -217,7 +217,8 @@ public class CalendarView {
 		btnToday.addActionListener(controller.new btnToday_Action());
 		addTask.addActionListener(controller.new btnView_Action());
 		btnDay.addActionListener(controller.new btnView_Action());
-
+		btnAgenda.addActionListener(controller.new btnView_Action());
+		
 		for (int i = controller.getYear()-100; i <= controller.getYear()+100; i++) {
 			cmbYear.addItem(String.valueOf(i));
 		}
