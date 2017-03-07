@@ -108,8 +108,8 @@ public class CalendarController {//extends Observer {
 			   month = view.getMonthlbl(), 
 			   year = view.getCmbYr().toString();
 		int equivMthNum = 0;
-		int startTotalMinutes = (Integer.parseInt(hourStart) * 6) + Integer.parseInt(minStart);
-		int endTotalMinutes = (Integer.parseInt(hourEnd) * 6) + Integer.parseInt(minEnd);
+		int startTotalMinutes = (Integer.parseInt(hourStart) * 60) + Integer.parseInt(minStart);
+		int endTotalMinutes = (Integer.parseInt(hourEnd) * 60) + Integer.parseInt(minEnd);
 
 		for(Months m: Months.values()) {
 			if(m.toString().equals(month))
@@ -127,6 +127,7 @@ public class CalendarController {//extends Observer {
 		else if (type == Type.TO_DO)
 			newTask = new Task(Type.TO_DO, testStartDate, testEndDate, name, "green");
 
+		//System.out.println("End Min = " + endTotalMinutes + " Start Min = " + startTotalMinutes);
 		if (endTotalMinutes > startTotalMinutes)
 			model.addTask(newTask);
 		else

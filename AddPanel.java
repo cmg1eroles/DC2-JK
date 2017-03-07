@@ -116,19 +116,24 @@ public class AddPanel extends PanelFactory {
 	class btnSave_Action implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
 			if (type != null) {
-				String endMinute;
+				String endMinute, endHour;
 				if (type == Type.TO_DO) {
-					if (minStartList.getSelectedItem().toString() == "00")
+					if (minStartList.getSelectedItem().toString() == "00") {
 						endMinute = "30";
-					else
+						endHour = hourEndList.getSelectedItem().toString();
+					}
+					else {
 						endMinute = "00";
+						endHour = "" + (Integer.parseInt(hourEndList.getSelectedItem().toString()) + 1);
+					}
 				}
 				else
 					endMinute = minEndList.getSelectedItem().toString();
+					endHour = hourEndList.getSelectedItem().toString();
 
 				controller.addNewTask(name.getText(), hourStartList.getSelectedItem().toString(),
 										minStartList.getSelectedItem().toString(), 
-										hourStartList.getSelectedItem().toString(),
+										endHour,
 										endMinute,type);
 			}
 		}
