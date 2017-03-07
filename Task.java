@@ -4,7 +4,7 @@ public class Task {
 	public Task(Type type, GregorianCalendar startDT, GregorianCalendar endDT, String name, String color) {
 		this.type = type;
 		this.name = name;
-		this.name = color;
+		this.color = color;
 		startDateTime = startDT;
 		endDateTime = endDT;
 	}

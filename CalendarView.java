@@ -104,8 +104,7 @@ public class CalendarView {
 
 	public void initCalendarComponents() {
 		monthLabel = new JLabel ("January");
-		yearLabel = new JLabel ("Change year:");
-		
+		dayLabel = new JLabel("");
 		cmbYear = new JComboBox();
 		btnPrev = new JButton ("<");
 		btnNext = new JButton (">");
@@ -119,14 +118,12 @@ public class CalendarView {
 		calendarTable = new JTable(modelCalendarTable);   
 		scrollCalendarTable = new JScrollPane(calendarTable);
 		calendarPanel = new JPanel(null);
-		GregorianCalendar dateToday = new GregorianCalendar();
-		dayLabel = new JLabel(""+dateToday.get(GregorianCalendar.DATE));
+		
 	}
 
 	public void addCalendarComponents() {
 		pane.add(calendarPanel);
 		calendarPanel.add(monthLabel);
-		calendarPanel.add(yearLabel);
 		calendarPanel.add(dayLabel);
 		calendarPanel.add(cmbYear);
 		calendarPanel.add(btnPrev);
@@ -136,7 +133,7 @@ public class CalendarView {
 		String[] headers = {"S", "M", "T", "W", "T", "F", "S"}; //All headers
 		for (int i=0; i<7; i++)
 			modelCalendarTable.addColumn(headers[i]);
-		
+		setDayLbl();
 	}
 
 	public void setCalendarPanel() {
@@ -240,6 +237,11 @@ public class CalendarView {
 		dateLabel.setText(date);
 	}
 
+	public void setDayLbl() {
+		GregorianCalendar dateToday = new GregorianCalendar();
+		dayLabel.setText(""+dateToday.get(GregorianCalendar.DATE));
+	}
+
 	public Object getCmbYr() {
 		return cmbYear.getSelectedItem();
 	}
@@ -250,6 +252,10 @@ public class CalendarView {
 
 	public String getMonthlbl() {
 		return monthLabel.getText();
+	}
+
+	public CalendarController getController(){
+		return controller;
 	}
 
 	public void setCell(String event) {

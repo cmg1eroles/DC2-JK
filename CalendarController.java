@@ -28,6 +28,7 @@ public class CalendarController {//extends Observer {
 	public Iterator getEvents(){
 		GregorianCalendar cal = new GregorianCalendar(yearToday, 
 				monthToday,Integer.parseInt(view.getDaylbl()));
+		System.out.println(monthToday + " "+ view.getDaylbl());
 		return model.getTasks(cal);
 	}
 
@@ -45,7 +46,7 @@ public class CalendarController {//extends Observer {
 
 	public void changePanel(ActionEvent e) {
 		JButton b = (JButton)e.getSource();
-		JPanel nPanel = PanelFactory.determine(b.getText(),CalendarController.this);
+		JPanel nPanel = PanelFactory.determine(b.getText(),view.getController());
 		view.addPaneltoPane(nPanel);
 	}
 
@@ -89,6 +90,7 @@ public class CalendarController {//extends Observer {
 		public void actionPerformed (ActionEvent e) {
 			String dteToday = view.getDateToday();
 			view.setDate(dteToday);
+			view.setDayLbl();
 			view.refreshCalendar(monthToday, yearToday);
 		}
 	}
@@ -101,15 +103,15 @@ public class CalendarController {//extends Observer {
 
 
 
-	public void addNewTask(String name, String hourStart, String minStart,
-						   String hourEnd, String minEnd, Type type) 
+	public void addNewTask(String name, int hourStart, int minStart,
+						   int hourEnd, int minEnd, Type type) 
 	{
 		String day = view.getDaylbl(),
 			   month = view.getMonthlbl(), 
 			   year = view.getCmbYr().toString();
 		int equivMthNum = 0;
-		int startTotalMinutes = (Integer.parseInt(hourStart) * 60) + Integer.parseInt(minStart);
-		int endTotalMinutes = (Integer.parseInt(hourEnd) * 60) + Integer.parseInt(minEnd);
+		int startTotalMinutes = hourStart * 60 + minStart;
+		int endTotalMinutes = hourEnd * 60 + minEnd;
 
 		for(Months m: Months.values()) {
 			if(m.toString().equals(month))
@@ -117,9 +119,9 @@ public class CalendarController {//extends Observer {
 		}
 
 		GregorianCalendar testStartDate = new GregorianCalendar(Integer.parseInt(year),equivMthNum,
-								Integer.parseInt(day), Integer.parseInt(hourStart), Integer.parseInt(minStart));
+								Integer.parseInt(day), hourStart, minStart);
 		GregorianCalendar testEndDate = new GregorianCalendar(Integer.parseInt(year),equivMthNum,
-								Integer.parseInt(day), Integer.parseInt(hourEnd), Integer.parseInt(minEnd));
+								Integer.parseInt(day), hourEnd, minEnd);
 		
 		Task newTask = null;
 		if (type == Type.EVENT)

@@ -83,6 +83,13 @@ public class DayPanel extends PanelFactory {
 		} else {
 			for (Iterator it = events; it.hasNext();) {
 				Task t = (Task)it.next();
+				int j = 0;
+				String eventName = "<html><font color ='" + t.getStrColor() + "'>" + 
+								t.getName() + "</font></html>";
+				if(t.getStartMinute() == 30)
+					j++;
+
+				modelTimeDay.setValueAt(eventName,j + (t.getStartHour()*2),1);
 			}
 		}
 	}
