@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class CalendarModel {//extends Observer{
-	public Iterator getTasks(int year, int month) {
+	public Iterator getTasks(GregorianCalendar day) {
 		ArrayList<Task> taskMonthYear = new ArrayList<Task>();
 		for(int i=0;i<allTasks.size();i++) {
-			if(allTasks.get(i).findEventMY(year, month)) {
+			if(allTasks.get(i).findEvent(day)) {
 				taskMonthYear.add(allTasks.get(i));
 			}
 		}

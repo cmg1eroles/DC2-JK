@@ -38,13 +38,13 @@ public class AgendaPanel extends PanelFactory {
 		taskscroll.setBounds(50,50, 500, 530);
 	}
 	
-	private ArrayList<JLabel> todolist(ArrayList<Task> tasks){
+	/*private ArrayList<JLabel> todolist(ArrayList<Task> tasks){
 		for(Task task: tasks){
 			//JLabel l = JLabel("<html>"+task.)
 			
 		}
 		
-	}
+	}*/
 	
 	
 	private JPanel Agenda;

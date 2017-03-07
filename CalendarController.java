@@ -26,7 +26,9 @@ public class CalendarController {//extends Observer {
 	}*/
 
 	public Iterator getEvents(){
-		return model.getTasks(yearToday, monthToday);
+		GregorianCalendar cal = new GregorianCalendar(yearToday, 
+				monthToday,Integer.parseInt(view.getDaylbl()));
+		return model.getTasks(cal);
 	}
 
 	public int getYear() {

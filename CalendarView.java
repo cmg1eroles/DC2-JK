@@ -105,7 +105,7 @@ public class CalendarView {
 	public void initCalendarComponents() {
 		monthLabel = new JLabel ("January");
 		yearLabel = new JLabel ("Change year:");
-		dayLabel = new JLabel("");
+		
 		cmbYear = new JComboBox();
 		btnPrev = new JButton ("<");
 		btnNext = new JButton (">");
@@ -116,15 +116,11 @@ public class CalendarView {
             }
         };
                 
-		calendarTable = new JTable(modelCalendarTable);
-        calendarTable.addMouseListener(new MouseAdapter() {  
-            public void mouseClicked(MouseEvent evt) {  
-                setDate();
-            }
-        });
-                
+		calendarTable = new JTable(modelCalendarTable);   
 		scrollCalendarTable = new JScrollPane(calendarTable);
 		calendarPanel = new JPanel(null);
+		GregorianCalendar dateToday = new GregorianCalendar();
+		dayLabel = new JLabel(""+dateToday.get(GregorianCalendar.DATE));
 	}
 
 	public void addCalendarComponents() {
@@ -222,6 +218,21 @@ public class CalendarView {
 		for (int i = controller.getYear()-100; i <= controller.getYear()+100; i++) {
 			cmbYear.addItem(String.valueOf(i));
 		}
+
+		calendarTable.addMouseListener(new MouseAdapter() {  
+            public void mouseClicked(MouseEvent evt) {  
+                setDate();
+              /*  try {
+                	if(temp.getName().equals("DAY")){
+                		Iterator dayEvents = controller.getEvents(getDaylbl());
+                		if(dayEvents == null)
+                			temp.updateDay("No events/task for today");
+                		else temp.updateDay(dayEvents);
+                	} 
+                }catch (Exception e){}*/
+            }
+        });
+
 		refreshCalendar (controller.getMonth(), controller.getYearBound()); 
 	}
 

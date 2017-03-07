@@ -3,6 +3,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 import javax.swing.table.*;
+import java.util.*;
 public class DayPanel extends PanelFactory {
 	public DayPanel(CalendarController cc) {
 		controller = cc;
@@ -13,6 +14,7 @@ public class DayPanel extends PanelFactory {
 		addComponents();
 		setPanel();
 		setBoundsDP();
+		updateDay();
 		//addListeners();
 		return dayPanel;
 	}
@@ -64,12 +66,25 @@ public class DayPanel extends PanelFactory {
 
 	private void setPanel() {
 		dayPanel.setBackground(Color.WHITE);
+		dayPanel.setName("DAY");
 	}
 
 	private void setBoundsDP() {
 		dayPanel.setBounds(300,100,595,795);
 		scrollDay.setBounds(50,50, 500, 530);
 		//btnDelete.setBounds(0, 0, 100,100);
+	}
+
+	private void updateDay() {
+		Iterator events = controller.getEvents();
+		System.out.println("HALLOOOOO");
+		if(!events.hasNext()){
+			modelTimeDay.setValueAt("No events/tasks for today",0,1);
+		} else {
+			for (Iterator it = events; it.hasNext();) {
+				Task t = (Task)it.next();
+			}
+		}
 	}
 
 	private JPanel dayPanel;
