@@ -40,14 +40,17 @@ public class CalendarModel {//extends Observer{
 		for(int i=0;i<allTasks.size();i++) {
 			if(allTasks.get(i).getDone())
 				allTasks.remove(i);
-		/*	if (allTasks.get(i).getName() == td.getName() &&
-				allTasks.get(i).findEvent(td.getStartDT(),2) &&
-				allTasks.get(i).findEvent(td.getEndDT(),2)) 
-			{
-				allTasks.remove(i);
-				break;
-			}*/
 		}
+	}
+
+	public int getToDoLeft() {
+		int left = 0;
+		for(int i=0;i<allTasks.size();i++) {
+			if(allTasks.get(i).getType() == Type.TO_DO &&
+				!allTasks.get(i).getDone())
+					left++;
+		}
+		return left;
 	}
 
 	private ArrayList<Task> allTasks = new ArrayList<Task>();

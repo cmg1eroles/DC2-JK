@@ -1,7 +1,9 @@
-import java.awt.Color;
-import java.util.*;
-
+import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+import javax.swing.table.*;
+import java.util.*;
 
 public class AgendaPanel extends PanelFactory {
 	public AgendaPanel(CalendarController cc){
@@ -19,30 +21,50 @@ public class AgendaPanel extends PanelFactory {
 	}
 	
 	private void initComponents(){
+		btnDelete = new JButton("DELETE DONE TO-DOS");
 		agendaPanel = new JPanel(null);
-		taskscroll = new JScrollPane();
-		dayAgenda = new JLabel();
+		modelAgendaTable = new DefaultTableModel(){
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+                return false;
+            }
+        };
+        agendaTable = new JTable(modelAgendaTable);
+		taskscroll = new JScrollPane(agendaTable);
+		toDoLeft = new JLabel(""+controller.getToDo());
+		setTable();
 	}
 	
 	private void setPanel() {
 		agendaPanel.setBackground(Color.WHITE);
 	}
 	
+	private void setTable() {
+		agendaTable.setRowHeight(40);
+		modelAgendaTable.addColumn("Event/Task");
+		modelAgendaTable.setColumnCount(1);
+		modelAgendaTable.setRowCount(20);
+		agendaTable.getTableHeader().setResizingAllowed(false);
+		agendaTable.getTableHeader().setReorderingAllowed(false);
+		agendaTable.setColumnSelectionAllowed(true);
+		agendaTable.setRowSelectionAllowed(true);
+		agendaTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		agendaTable.getColumnModel().getColumn(0).setPreferredWidth(120);
+	}
+
 	private void addComponents() {
 		agendaPanel.add(taskscroll);
-		
-		
+		agendaPanel.add(btnDelete);
+		agendaPanel.add(toDoLeft);
 	}
 	private void setBounds(){
 		agendaPanel.setBounds(300,100,595,795);
-		taskscroll.setBounds(50,50, 500, 530);
-		dayAgenda.setBounds(0,0,495, 525);
-		dayAgenda.setVerticalAlignment(dayAgenda.TOP);
+		taskscroll.setBounds(50,75, 500, 475);
+		btnDelete.setBounds(300, 20, 250,40);
+		toDoLeft.setBounds(50, 20, 100, 40);
 	}
 	
 	private void updateAgenda() {
-		Iterator events = controller.getTasks();
-		System.out.println("HALLOOOOO");
+		/*Iterator events = controller.getTasks();
 		if(!events.hasNext()){
 			dayAgenda.setText("No events/tasks for today");
 			//modelTimeDay.setValueAt("No events/tasks for today",0,1);
@@ -80,13 +102,16 @@ public class AgendaPanel extends PanelFactory {
 		for(Task task: tasks){
 			//JLabel l = JLabel("<html>"+task.)
 			
-		}
+		}*/
 		
-	}*/
+	}
 	
 	
 	private JPanel agendaPanel;
-	private JLabel dayAgenda;
 	private JScrollPane taskscroll;
+	private JButton btnDelete;
+	private JLabel toDoLeft;
+	private JTable agendaTable;
+	private DefaultTableModel modelAgendaTable;
 	private CalendarController controller;
 }

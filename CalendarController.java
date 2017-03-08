@@ -35,6 +35,10 @@ public class CalendarController {//extends Observer {
 		model.deleteTD();
 	}
 
+	public int getToDo() {
+		return model.getToDoLeft();
+	}
+
 	public int getView() {
 		return view.getViewType();
 	}

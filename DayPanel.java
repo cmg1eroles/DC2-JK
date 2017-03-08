@@ -30,6 +30,7 @@ public class DayPanel extends PanelFactory {
 		timeDay = new JTable(modelTimeDay);
 		scrollDay = new JScrollPane(timeDay);
 		dayPanel = new JPanel(null);
+		toDoLeft = new JLabel(""+controller.getToDo());
 		
 		setTimeTable();
 		int j = 0;
@@ -47,6 +48,7 @@ public class DayPanel extends PanelFactory {
 	private void addComponents() {
 		dayPanel.add(scrollDay);
 		dayPanel.add(btnDelete);
+		dayPanel.add(toDoLeft);
 	}
 
 	private void setTimeTable() {
@@ -72,8 +74,9 @@ public class DayPanel extends PanelFactory {
 
 	private void setBoundsDP() {
 		dayPanel.setBounds(300,100,595,795);
-		scrollDay.setBounds(50,50, 500, 530);
-		btnDelete.setBounds(175, 0, 250,40);
+		scrollDay.setBounds(50,75, 500, 475);
+		btnDelete.setBounds(300, 20, 250,40);
+		toDoLeft.setBounds(50, 20, 100, 40);
 	}
 
 	private void setListeners() {
@@ -115,11 +118,14 @@ public class DayPanel extends PanelFactory {
 			else {
 				System.out.println("No");
 			}
+			toDoLeft.setText(""+controller.getToDo());
 		} catch(Exception e){}
 	}
 
 	public void deleteDoneToDo() {
 		controller.deleteTD();
+			toDoLeft.setText(""+controller.getToDo());
+		
 	}
 
 	private void updateDay() {
@@ -151,6 +157,7 @@ public class DayPanel extends PanelFactory {
 
 	private JPanel dayPanel;
 	private JButton btnDelete;
+	private JLabel toDoLeft;
 	private JScrollPane scrollDay;
 	private JTable timeDay;
 	private DefaultTableModel modelTimeDay;
