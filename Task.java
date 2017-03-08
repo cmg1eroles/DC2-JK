@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Task implements Serializable{
+public class Task implements Serializable, Comparable<Task>{
 	public Task(Type type, GregorianCalendar startDT, GregorianCalendar endDT, String name, String color) {
 		this.type = type;
 		this.name = name;
@@ -72,6 +72,12 @@ public class Task implements Serializable{
 		return startDateTime.get(GregorianCalendar.MINUTE);
 	}
 
+	public String getStrStartTime() {
+		if (getStartMinute() == 0)
+			return "" + getStartHour() + ":00";
+		return "" + getStartHour() + ":" + getStartMinute();
+	}
+
 	public int getEndHour() {
 		return endDateTime.get(GregorianCalendar.HOUR_OF_DAY);
 	}
@@ -80,11 +86,12 @@ public class Task implements Serializable{
 		return endDateTime.get(GregorianCalendar.MINUTE);
 	}
 
-	public boolean findEventMY(int year, int month) {
-		if(month == getMonth() && year == getYear())
-			return true;
-		return false;
+	public String getStrEndTime() {
+		if (getEndMinute() == 0)
+			return "" + getEndHour() + ":00";
+		return "" + getEndHour() + ":" + getEndMinute();
 	}
+
 
 	public boolean findEvent(GregorianCalendar date, int viewType) {
 		if((date.get(GregorianCalendar.MONTH) == getMonth() &&
@@ -123,6 +130,14 @@ public class Task implements Serializable{
 		}
 		return false;
 	}	
+
+	@Override
+	public int compareTo(Task t) {
+		if((this.getStartHour() * 60) + this.getStartMinute() >
+			(t.getStartHour() * 60) + t.getStartMinute())
+			return 1;
+		return -1;
+	}
 
 	private Type type;
 	private String name;

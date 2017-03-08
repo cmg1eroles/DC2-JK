@@ -71,7 +71,7 @@ public class CalendarView {
 
 	public void setBoundsVChoiceComponents() {
 		//temp.setBounds(300,100,595,795);
-		vChoicePanel.setBounds(0,400,300,330);
+		vChoicePanel.setBounds(0,450,300,250);
 		cbEvent.setBounds(100, 70, 100, 40);
 		cbTask.setBounds(100, 140, 100, 40);
 	}
@@ -115,6 +115,7 @@ public class CalendarView {
 	public void initCalendarComponents() {
 		monthLabel = new JLabel ("January");
 		dayLabel = new JLabel("");
+		statusLabel = new JLabel("");
 		cmbYear = new JComboBox();
 		btnPrev = new JButton ("<");
 		btnNext = new JButton (">");
@@ -135,6 +136,7 @@ public class CalendarView {
 		pane.add(calendarPanel);
 		calendarPanel.add(monthLabel);
 		calendarPanel.add(dayLabel);
+		calendarPanel.add(statusLabel);
 		calendarPanel.add(cmbYear);
 		calendarPanel.add(btnPrev);
 		calendarPanel.add(btnNext);
@@ -164,9 +166,9 @@ public class CalendarView {
 		modelCalendarTable.setRowCount(6);
 	}
 	public void setBoundsCalendarComponents() {
-		calendarPanel.setBounds(0, 0, 300, 400);
+		calendarPanel.setBounds(0, 0, 300, 450);
         monthLabel.setBounds(20, 15, 200, 50);
-       // dayLabel.setBounds(110,55,50, 50);
+        statusLabel.setBounds(20,380,300, 50);
 		cmbYear.setBounds(20, 55, 80, 35);
 		btnPrev.setBounds(180, 50, 45, 40);
 		btnNext.setBounds(225, 50, 45, 40);
@@ -263,6 +265,10 @@ public class CalendarView {
 		dayLabel.setText(""+dateToday.get(GregorianCalendar.DATE));
 	}
 
+	public void setStatus(String status) {
+		statusLabel.setText(status);
+	}
+
 	public Object getCmbYr() {
 		return cmbYear.getSelectedItem();
 	}
@@ -299,7 +305,7 @@ public class CalendarView {
 	private int col, row;
 
     /**** Calendar Swing Components ****/
-    private JLabel monthLabel, yearLabel, dayLabel;
+    private JLabel monthLabel, dayLabel, statusLabel;
 	private JButton btnPrev, btnNext, addTask;
     private JComboBox cmbYear;
 	private JFrame frmMain;

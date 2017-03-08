@@ -6,9 +6,9 @@ public abstract class PanelFactory {
 		switch(btnName) {
 			case "CREATE":  panel = new AddPanel(cc);
 			break;
-			case "DAY": panel = new DayPanel(cc);
+			case "DAY": panel = new DayPanels(cc);
 			break;
-			case "AGENDA": panel = new AgendaPanel(cc);
+			case "AGENDA": panel = new AgendaPanels(cc);
 		}
 		return panel.makePanel();
 	}

@@ -20,15 +20,10 @@ public class CalendarController {//extends Observer {
 		yearBound = yearToday;
 	}
 
-/*	public void showEvents(Iterator event) {
-		System.out.println("halooooo");
-		view.refreshCalendar(monthToday, yearToday,event);
-	}*/
-
-	public Iterator getTasks(){
+	public Iterator getTasks(boolean sort){
 		GregorianCalendar cal = new GregorianCalendar(yearToday, 
 				monthToday,Integer.parseInt(view.getDaylbl()));
-		return model.getTasks(cal, view.getViewType());
+		return model.getTasks(cal, view.getViewType(),sort);
 	}
 
 	public void deleteTD() {
@@ -128,15 +123,14 @@ public class CalendarController {//extends Observer {
 
 
 
-	public void addNewTask(String name, int hourStart, int minStart,
-						   int hourEnd, int minEnd, Type type) 
+	public void addNewTask(Task tempoTask) 
 	{
 		String day = view.getDaylbl(),
 			   month = view.getMonthlbl(), 
 			   year = view.getCmbYr().toString();
 		int equivMthNum = 0;
-		int startTotalMinutes = hourStart * 60 + minStart;
-		int endTotalMinutes = hourEnd * 60 + minEnd;
+		int startTotalMinutes = tempoTask.getStartHour() * 60 + tempoTask.getStartMinute();
+		int endTotalMinutes = tempoTask.getEndHour() * 60 + tempoTask.getEndMinute();
 
 		for(Months m: Months.values()) {
 			if(m.toString().equals(month))
@@ -144,75 +138,25 @@ public class CalendarController {//extends Observer {
 		}
 
 		GregorianCalendar testStartDate = new GregorianCalendar(Integer.parseInt(year),equivMthNum,
-								Integer.parseInt(day), hourStart, minStart);
+								Integer.parseInt(day), tempoTask.getStartHour(), tempoTask.getStartMinute());
 		GregorianCalendar testEndDate = new GregorianCalendar(Integer.parseInt(year),equivMthNum,
-								Integer.parseInt(day), hourEnd, minEnd);
+								Integer.parseInt(day), tempoTask.getEndHour(), tempoTask.getEndMinute());
 		
 		Task newTask = null;
-		if (type == Type.EVENT)
-			newTask = new Task(Type.EVENT, testStartDate, testEndDate, name, "blue");
-		else if (type == Type.TO_DO)
-			newTask = new Task(Type.TO_DO, testStartDate, testEndDate, name, "green");
+		if (tempoTask.getType() == Type.EVENT)
+			newTask = new Task(Type.EVENT, testStartDate, testEndDate, tempoTask.getName(), "blue");
+		else if (tempoTask.getType() == Type.TO_DO)
+			newTask = new Task(Type.TO_DO, testStartDate, testEndDate, tempoTask.getName(), "green");
 
 		//System.out.println("End Min = " + endTotalMinutes + " Start Min = " + startTotalMinutes);
 		if (endTotalMinutes > startTotalMinutes)
-			model.addTask(newTask);
+			view.setStatus(model.addTask(newTask));
 		else
-			System.out.println("Sorry invalid time!");
+			view.setStatus("Sorry invalid time!");
 	}
 
 	public void save(){
 		model.saveEvents();
 	}
 
-/*	class btnEvent_Action implements ActionListener {
-		public void actionPerformed (ActionEvent e) {
-			if (view.getDaylbl() != "null" && view.getDaylbl() != "") {
-				String day = view.getDaylbl(),
-					   month = view.getMonthlbl(), 
-					   year = view.getCmbYr().toString();
-				
-				int equivMthNum = 0;
-				for(Months m: Months.values()) {
-					if(m.toString().equals(month))
-						equivMthNum = m.toInt();
-				}
-				String currColor = view.getColor();
-
-				GregorianCalendar selectedDate = new GregorianCalendar(Integer.parseInt(year),equivMthNum,Integer.parseInt(day));
-				Events ev = new Events(selectedDate, view.getTextEvent(), currColor);
-				model.addEvent(ev);
-				String event = "<html>" + day + " <font color='" + currColor + "'>" + view.getTextEvent() + "</font></html>";
-				view.setCell(event);
-			}
-		}
-	}
-
-
-	class btnImport_Action implements ActionListener {
-		public void actionPerformed (ActionEvent e) {
-			String fileName = view.getFileName();
-			ImportFile importer = null;
-			ArrayList<Events> newEvents = null;
-			String ext = fileName.substring(fileName.length()-3, fileName.length());
-			System.out.println(ext);
-			
-			switch(ext) {
-				case "csv": importer = new CSV();
-				newEvents = importer.imp(view.getFileName());
-					break;
-				case "psv": importer = new PSV();
-				newEvents = importer.imp(view.getFileName());
-					break;
-				default: newEvents = null;
-			}
-
-			if(newEvents != null) {
-				model.addEvents(newEvents);
-			}
-
-				view.refreshCalendar(monthToday, yearToday);
-			
-		}
-	}*/
 }

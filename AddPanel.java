@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
+import java.util.*;
 import java.awt.event.*;
 public class AddPanel extends PanelFactory {
 	public AddPanel(CalendarController cc) {
@@ -131,8 +131,9 @@ public class AddPanel extends PanelFactory {
 						endHour = startHour + 1;
 					}
 				}
-				System.out.println(startHour+":"+startMin+" to "+ endHour+":"+endMinute);
-				controller.addNewTask(name.getText(), startHour,startMin,endHour, endMinute,type);
+				Task tempTsk = new Task(type, new GregorianCalendar(1970, 1, 1, startHour, startMin),
+					                    new GregorianCalendar(1970, 1, 1, endHour, endMinute), name.getText());
+				controller.addNewTask(tempTsk);
 			}
 		}
 	}
