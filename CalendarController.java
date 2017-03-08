@@ -29,7 +29,8 @@ public class CalendarController {//extends Observer {
 		GregorianCalendar cal = new GregorianCalendar(yearToday, 
 				monthToday,Integer.parseInt(view.getDaylbl()));
 		System.out.println(monthToday + " "+ view.getDaylbl());
-		return model.getTasks(cal);
+		System.out.println(view.getViewType());
+		return model.getTasks(cal, view.getViewType());
 	}
 
 	public int getYear() {
@@ -99,6 +100,20 @@ public class CalendarController {//extends Observer {
 		public void actionPerformed (ActionEvent e) {
 			changePanel(e);
 		}
+	}
+
+	class viewChanged implements ItemListener {
+		 public void itemStateChanged(ItemEvent e){
+		 	Object source = e.getItem();
+		 	String cbName = ((JCheckBox)source).getText();
+		 	int equiv = 0;
+		 	if(cbName.equals("Event"))
+		 		equiv = 1;
+		 	else equiv = 2;
+		 	if (e.getStateChange() == ItemEvent.DESELECTED) {
+		 		view.setViewType(view.getViewType()-equiv);
+		 	} else view.setViewType(view.getViewType()+equiv);
+		 }
 	}
 
 

@@ -44,6 +44,10 @@ public class CalendarView {
 		cbEvent = new JCheckBox("Event");
 		cbTask = new JCheckBox("Task");
 		vChoicePanel = new JPanel(null);
+		cbEvent.setSelected(true);
+		viewType += 1;
+		cbTask.setSelected(true);
+		viewType += 2;
 		//temp = new JPanel(null);
 	}
 
@@ -211,6 +215,8 @@ public class CalendarView {
 		addTask.addActionListener(controller.new btnView_Action());
 		btnDay.addActionListener(controller.new btnView_Action());
 		btnAgenda.addActionListener(controller.new btnView_Action());
+		cbEvent.addItemListener(controller.new viewChanged());
+		cbTask.addItemListener(controller.new viewChanged());
 		
 		for (int i = controller.getYear()-100; i <= controller.getYear()+100; i++) {
 			cmbYear.addItem(String.valueOf(i));
@@ -231,6 +237,15 @@ public class CalendarView {
         });
 
 		refreshCalendar (controller.getMonth(), controller.getYearBound()); 
+	}
+
+	public int getViewType() {
+		return viewType;
+	}
+
+	public void setViewType(int t) {
+		viewType = t;
+		System.out.println(viewType);
 	}
 
 	public void setDate(String date) {
@@ -295,6 +310,7 @@ public class CalendarView {
 	private JPanel vChoicePanel;
 	private JCheckBox cbEvent, cbTask;
 	private JPanel temp = null;
+	private int viewType = 0;
     /**** Calendar Table Components ***/
 	private JTable calendarTable;
     private DefaultTableModel modelCalendarTable;

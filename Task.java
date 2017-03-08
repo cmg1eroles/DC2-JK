@@ -9,6 +9,10 @@ public class Task {
 		endDateTime = endDT;
 	}
 
+	public Type getType() {
+		return type;
+	}
+
 	public String getStrType() {
 		return type.toString();
 	}
@@ -63,11 +67,21 @@ public class Task {
 		return false;
 	}
 
-	public boolean findEvent(GregorianCalendar date) {
+	public boolean findEvent(GregorianCalendar date, int viewType) {
 		if((date.get(GregorianCalendar.MONTH) == getMonth() &&
 			date.get(GregorianCalendar.DATE) == getDay() &&
 			date.get(GregorianCalendar.YEAR) == getYear()))
-			return true;
+			if(viewType == 3)
+				return true;
+			else if(viewType == 1){
+				if(type == Type.EVENT)
+					return true;
+			}
+			else {
+				if(type == Type.TO_DO)
+					return true;
+			}
+
 		return false;
 	}
 
