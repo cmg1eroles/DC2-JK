@@ -1,6 +1,9 @@
 import java.util.*;
 
 public class CalendarModel {//extends Observer{
+	public CalendarModel() {
+		allTasks = store.read();
+	}
 	public Iterator getTasks(GregorianCalendar day, int viewType) {
 		ArrayList<Task> taskMonthYear = new ArrayList<Task>();
 		if(viewType == 0)
@@ -29,6 +32,25 @@ public class CalendarModel {//extends Observer{
 		//setState();
 	}
 
+	public void saveEvents(){
+		store.write(allTasks);
+	}
+
+	public void deleteTD() {
+		for(int i=0;i<allTasks.size();i++) {
+			if(allTasks.get(i).getDone())
+				allTasks.remove(i);
+		/*	if (allTasks.get(i).getName() == td.getName() &&
+				allTasks.get(i).findEvent(td.getStartDT(),2) &&
+				allTasks.get(i).findEvent(td.getEndDT(),2)) 
+			{
+				allTasks.remove(i);
+				break;
+			}*/
+		}
+	}
+
 	private ArrayList<Task> allTasks = new ArrayList<Task>();
 	private CalendarController controller;
+	private Storage store = new Storage();
 }

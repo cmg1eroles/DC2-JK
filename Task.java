@@ -1,12 +1,23 @@
 import java.util.*;
+import java.io.*;
 
-public class Task {
+public class Task implements Serializable{
 	public Task(Type type, GregorianCalendar startDT, GregorianCalendar endDT, String name, String color) {
 		this.type = type;
 		this.name = name;
 		this.color = color;
 		startDateTime = startDT;
 		endDateTime = endDT;
+		done = false;
+	}
+
+	public Task(Type type, GregorianCalendar startDT, GregorianCalendar endDT, String name) {
+		this.type = type;
+		this.name = name;
+		this.color = "white";
+		startDateTime = startDT;
+		endDateTime = endDT;
+		done = false;
 	}
 
 	public Type getType() {
@@ -23,6 +34,14 @@ public class Task {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setDone(boolean truthVal) {
+		done = truthVal;
+	}
+
+	public boolean getDone() {
+		return done;
 	}
 
 	public GregorianCalendar getStartDT() {
@@ -110,4 +129,5 @@ public class Task {
 	private String color;
 	private GregorianCalendar startDateTime;
 	private GregorianCalendar endDateTime;
+	private boolean done;
 }

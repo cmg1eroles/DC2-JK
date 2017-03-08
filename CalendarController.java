@@ -25,12 +25,18 @@ public class CalendarController {//extends Observer {
 		view.refreshCalendar(monthToday, yearToday,event);
 	}*/
 
-	public Iterator getEvents(){
+	public Iterator getTasks(){
 		GregorianCalendar cal = new GregorianCalendar(yearToday, 
 				monthToday,Integer.parseInt(view.getDaylbl()));
-		System.out.println(monthToday + " "+ view.getDaylbl());
-		System.out.println(view.getViewType());
 		return model.getTasks(cal, view.getViewType());
+	}
+
+	public void deleteTD() {
+		model.deleteTD();
+	}
+
+	public int getView() {
+		return view.getViewType();
 	}
 
 	public int getYear() {
@@ -151,6 +157,9 @@ public class CalendarController {//extends Observer {
 			System.out.println("Sorry invalid time!");
 	}
 
+	public void save(){
+		model.saveEvents();
+	}
 
 /*	class btnEvent_Action implements ActionListener {
 		public void actionPerformed (ActionEvent e) {

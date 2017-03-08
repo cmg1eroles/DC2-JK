@@ -33,9 +33,9 @@ public class AddPanel extends PanelFactory {
 		minStartList.addItem("30");
 		minEndList.addItem("30");
 
-		name = new JTextField("Name of Event/Task");
+		name = new JTextField("Name of Event/To-do");
 		rbEvent = new JRadioButton("Event");
-		rbTodo = new JRadioButton("Task");
+		rbTodo = new JRadioButton("To-do");
 		btnSave = new JButton("Save");
 		btnDiscard = new JButton("Discard");
 		to = new JLabel("to");
@@ -126,6 +126,7 @@ public class AddPanel extends PanelFactory {
 						endHour = startHour;
 					}
 					else {
+						endMinute = 0;
 						endHour++;
 						endHour = startHour + 1;
 					}

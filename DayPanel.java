@@ -14,13 +14,14 @@ public class DayPanel extends PanelFactory {
 		addComponents();
 		setPanel();
 		setBoundsDP();
+		setListeners();
 		updateDay();
 		//addListeners();
 		return dayPanel;
 	}
 
 	private void initComponents() {
-		btnDelete = new JButton("DELETE");
+		btnDelete = new JButton("DELETE DONE TO-DOS");
 		modelTimeDay = new DefaultTableModel(){
             public boolean isCellEditable(int rowIndex, int mColIndex) {
                 return false;
@@ -72,24 +73,78 @@ public class DayPanel extends PanelFactory {
 	private void setBoundsDP() {
 		dayPanel.setBounds(300,100,595,795);
 		scrollDay.setBounds(50,50, 500, 530);
-		//btnDelete.setBounds(0, 0, 100,100);
+		btnDelete.setBounds(175, 0, 250,40);
+	}
+
+	private void setListeners() {
+		timeDay.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				clickToDo();
+			}
+		});
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteDoneToDo();
+			}
+		});
+	}
+
+	public void clickToDo() {
+		int dayCol = timeDay.getSelectedColumn();
+		int dayRow = timeDay.getSelectedRow();
+		try {
+			String oldDay = (String)modelTimeDay.getValueAt(dayRow, dayCol);
+			String actualTask = oldDay.contains("text-decoration:line-through;") 
+								? oldDay.replaceAll("<html><font color='green' style='text-decoration:line-through;'>", "")
+								: oldDay.replaceAll("<html><font color='green'>", "");
+			actualTask = actualTask.replaceAll("</font></html>", "");
+			Iterator dayIterator = controller.getTasks();
+			if (dayIterator.hasNext()) {
+				for (Iterator it=dayIterator; it.hasNext();) {
+					Task t = (Task)it.next();
+					int j = 0;
+					if (t.getName().equals(actualTask) && t.getStrType().equals("to do")) {
+						oldDay = oldDay.contains("text-decoration:line-through;")
+								 ? oldDay.replaceAll("<font color='green' style='text-decoration:line-through;'>", "<font color='green'>")
+								 : oldDay.replaceAll("<font color='green'>", "<font color='green' style='text-decoration:line-through;'>");
+						modelTimeDay.setValueAt(oldDay, dayRow, dayCol);
+						t.setDone(!t.getDone());
+					}
+				}
+			}
+			else {
+				System.out.println("No");
+			}
+		} catch(Exception e){}
+	}
+
+	public void deleteDoneToDo() {
+		controller.deleteTD();
 	}
 
 	private void updateDay() {
-		Iterator events = controller.getEvents();
-		System.out.println("HALLOOOOO");
+		Iterator events = controller.getTasks();
 		if(!events.hasNext()){
-			modelTimeDay.setValueAt("No events/tasks for today",0,1);
+			if(controller.getView() == 1)
+				modelTimeDay.setValueAt("No events for today",0,1);
+			else if(controller.getView() == 2)
+				modelTimeDay.setValueAt("No tasks for today",0,1);
+			else modelTimeDay.setValueAt("No events/tasks for today",0,1);
 		} else {
 			for (Iterator it = events; it.hasNext();) {
 				Task t = (Task)it.next();
 				int j = 0;
-				String eventName = "<html><font color ='" + t.getStrColor() + "'>" + 
-								t.getName() + "</font></html>";
+				String eventName = "<html><font color='" + t.getStrColor() + "'";
+				if (t.getDone() && t.getType() == Type.TO_DO)
+					eventName += " style='text-decoration:line-through;'";
+				eventName += ">" + t.getName() + "</font></html>";
 				if(t.getStartMinute() == 30)
 					j++;
 
-				modelTimeDay.setValueAt(eventName,j + (t.getStartHour()*2),1);
+				int k = ((t.getEndHour() - t.getStartHour()) * 2) + (t.getEndMinute() / 30);
+
+				for(int l = j; l < k; l++)
+					modelTimeDay.setValueAt(eventName,l + (t.getStartHour()*2),1);
 			}
 		}
 	}
