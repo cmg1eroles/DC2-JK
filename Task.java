@@ -11,15 +11,6 @@ public class Task implements Serializable, Comparable<Task>{
 		done = false;
 	}
 
-	public Task(Type type, GregorianCalendar startDT, GregorianCalendar endDT, String name) {
-		this.type = type;
-		this.name = name;
-		this.color = "white";
-		startDateTime = startDT;
-		endDateTime = endDT;
-		done = false;
-	}
-
 	public Type getType() {
 		return type;
 	}

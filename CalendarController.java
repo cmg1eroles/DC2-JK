@@ -142,9 +142,9 @@ public class CalendarController {//extends Observer {
 		
 		Task newTask = null;
 		if (tempoTask.getType() == Type.EVENT)
-			newTask = new Task(Type.EVENT, testStartDate, testEndDate, tempoTask.getName(), "blue");
+			newTask = new Task(Type.EVENT, testStartDate, testEndDate, tempoTask.getName(), tempoTask.getStrColor());
 		else if (tempoTask.getType() == Type.TO_DO)
-			newTask = new Task(Type.TO_DO, testStartDate, testEndDate, tempoTask.getName(), "green");
+			newTask = new Task(Type.TO_DO, testStartDate, testEndDate, tempoTask.getName(), tempoTask.getStrColor());
 
 		//System.out.println("End Min = " + endTotalMinutes + " Start Min = " + startTotalMinutes);
 		if (endTotalMinutes > startTotalMinutes)
