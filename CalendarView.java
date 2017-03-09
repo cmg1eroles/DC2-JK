@@ -48,7 +48,7 @@ public class CalendarView {
 
 	public void initVChoiceComponents() {
 		cbEvent = new JCheckBox("Event");
-		cbTask = new JCheckBox("Task");
+		cbTask = new JCheckBox("To-do");
 		vChoicePanel = new JPanel(null);
 		cbEvent.setSelected(true);
 		viewType += 1;
