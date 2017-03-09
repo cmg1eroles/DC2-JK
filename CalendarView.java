@@ -233,14 +233,6 @@ public class CalendarView {
 		calendarTable.addMouseListener(new MouseAdapter() {  
             public void mouseClicked(MouseEvent evt) {  
                 setDate();
-              /*  try {
-                	if(temp.getName().equals("DAY")){
-                		Iterator dayEvents = controller.getEvents(getDaylbl());
-                		if(dayEvents == null)
-                			temp.updateDay("No events/task for today");
-                		else temp.updateDay(dayEvents);
-                	} 
-                }catch (Exception e){}*/
             }
         });
 

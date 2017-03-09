@@ -21,6 +21,7 @@ public class AddPanel extends PanelFactory {
 		hourEndList = new JComboBox();
 		minStartList = new JComboBox();
 		minEndList = new JComboBox();
+		colors = new JComboBox();
 		type = null;
 
 		for(int i=0;i<24;i++) {
@@ -54,6 +55,7 @@ public class AddPanel extends PanelFactory {
 		createPanel.add(minEndList);
 		createPanel.add(minStartList);
 		createPanel.add(to);
+		createPanel.add(colors);
 		group.add(rbEvent);
 		group.add(rbTodo);
 	}
@@ -78,14 +80,15 @@ public class AddPanel extends PanelFactory {
 	}
 
 	private void setBoundsCP() {
-		hourStartList.setBounds(40, 180, 50, 40);
-		minStartList.setBounds(100, 180, 50, 40);
-		to.setBounds(160, 180, 50, 40);
-		hourEndList.setBounds(220, 180, 50, 40);
-		minEndList.setBounds(280, 180, 50, 40);
+		hourStartList.setBounds(40, 180, 45, 40);
+		minStartList.setBounds(95, 180, 45, 40);
+		to.setBounds(150, 180, 50, 40);
+		hourEndList.setBounds(180, 180, 45, 40);
+		minEndList.setBounds(235, 180, 45, 40);
 		name.setBounds(40, 50, 300, 50);
 		rbEvent.setBounds(40, 120, 100, 40);
 		rbTodo.setBounds(180, 120, 100, 40);
+		colors.setBounds(300,120,80,40);
 		btnSave.setBounds(40, 240, 70, 40);
 		btnDiscard.setBounds(120, 240, 100, 40);
 		createPanel.setBounds(300,100,595,795);
@@ -102,6 +105,10 @@ public class AddPanel extends PanelFactory {
 			hourEndList.setEnabled(false);
 			minEndList.setEnabled(false);
 			type = Type.TO_DO;
+			colors.removeAllItems();
+			for(ColorsTodo c: ColorsTodo.values()) {
+				colors.addItem(c);
+			}
 		}
 	}
 
@@ -110,6 +117,10 @@ public class AddPanel extends PanelFactory {
 			hourEndList.setEnabled(true);
 			minEndList.setEnabled(true);
 			type = Type.EVENT;
+			colors.removeAllItems();
+			for(ColorsEvent c: ColorsEvent.values()) {
+				colors.addItem(c);
+			}
 		}
 	}
 
@@ -132,7 +143,8 @@ public class AddPanel extends PanelFactory {
 					}
 				}
 				Task tempTsk = new Task(type, new GregorianCalendar(1970, 1, 1, startHour, startMin),
-					                    new GregorianCalendar(1970, 1, 1, endHour, endMinute), name.getText());
+					                    new GregorianCalendar(1970, 1, 1, endHour, endMinute), name.getText(),
+					                    colors.getSelectedItem().toString());
 				controller.addNewTask(tempTsk);
 			}
 		}
@@ -145,6 +157,6 @@ public class AddPanel extends PanelFactory {
 	private ButtonGroup group;
 	private JButton btnSave, btnDiscard;
 	private JRadioButton rbEvent, rbTodo;
-	private JComboBox hourStartList, minStartList, hourEndList, minEndList;
+	private JComboBox hourStartList, minStartList, hourEndList, minEndList, colors;
 	private CalendarController controller;
 }
