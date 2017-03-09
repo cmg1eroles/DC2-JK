@@ -90,7 +90,7 @@ public abstract class ViewPanels extends PanelFactory {
 				for (Iterator it=dayIterator; it.hasNext();) {
 					Task t = (Task)it.next();
 					int j = 0;
-					if (t.getName().equals(actualTask) && t.getStrType().equals("to do")) {
+					if (t.getName().equals(actualTask) && t.getType() == Type.TO_DO) {
 						oldDay = oldDay.contains("text-decoration:line-through;")
 								 ? oldDay.replaceAll("<font color='green' style='text-decoration:line-through;'>", "<font color='green'>")
 								 : oldDay.replaceAll("<font color='green'>", "<font color='green' style='text-decoration:line-through;'>");

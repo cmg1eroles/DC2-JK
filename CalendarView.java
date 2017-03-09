@@ -253,7 +253,6 @@ public class CalendarView {
 
 	public void setViewType(int t) {
 		viewType = t;
-		System.out.println(viewType);
 	}
 
 	public void setDate(String date) {
@@ -285,13 +284,8 @@ public class CalendarView {
 		return controller;
 	}
 
-	public void setCell(String event) {
-		modelCalendarTable.setValueAt(event,row,col);
-		calendarTable.setDefaultRenderer(calendarTable.getColumnClass(0), new TableRenderer());
-	}
 
 	public void addPaneltoPane(JPanel newpanel) {
-		//newpanel.setVisible(true);
 		if(temp != null)
 			pane.remove(temp);
 		temp = newpanel;
@@ -301,7 +295,6 @@ public class CalendarView {
 	private CalendarController controller;
 
 	/**** Day Components ****/
-	//public int yearBound, monthBound, dayBound, yearToday, monthToday;
 	private int col, row;
 
     /**** Calendar Swing Components ****/
@@ -323,6 +316,7 @@ public class CalendarView {
 	private JCheckBox cbEvent, cbTask;
 	private JPanel temp = null;
 	private int viewType = 0;
+	
     /**** Calendar Table Components ***/
 	private JTable calendarTable;
     private DefaultTableModel modelCalendarTable;

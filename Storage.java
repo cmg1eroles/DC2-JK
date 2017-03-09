@@ -19,18 +19,12 @@ public class Storage {
              ioe.printStackTrace();
           }catch(ClassNotFoundException c){
              System.out.println("Class not found");
-             c.printStackTrace();
           }
-        for(Task task: tasks){
-            System.out.println(task.getName());
-        }
 			return tasks;	
-
 	}
 	
 	
 	public void write(ArrayList<Task> tasks){
-
 		ArrayList<Task> append = tasks;
 	       try{
 	         FileOutputStream fos= new FileOutputStream(filename);
@@ -39,15 +33,8 @@ public class Storage {
 	         oos.close();
 	         fos.close();
 	       }catch(IOException ioe){
-	    	   System.out.println("WROJ");
 	            ioe.printStackTrace();
-	        }
-			
-			
-		
-		
-
-		
+	        }	
 	}
 	private static final String filename = "Event_Task.ser";
 }

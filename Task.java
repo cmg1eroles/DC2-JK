@@ -24,10 +24,6 @@ public class Task implements Serializable, Comparable<Task>{
 		return type;
 	}
 
-	public String getStrType() {
-		return type.toString();
-	}
-
 	public String getStrColor() {
 		return color;
 	}
@@ -42,14 +38,6 @@ public class Task implements Serializable, Comparable<Task>{
 
 	public boolean getDone() {
 		return done;
-	}
-
-	public GregorianCalendar getStartDT() {
-		return startDateTime;
-	}
-
-	public GregorianCalendar getEndDT() {
-		return endDateTime;
 	}
 
 	public int getMonth() {

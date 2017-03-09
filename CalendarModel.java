@@ -15,10 +15,7 @@ public class CalendarModel {//extends Observer{
 			}
 		}
 		if(sort){
-			System.out.println("sort");
 			taskMonthYear = sortTasks(taskMonthYear);
-			for(int k = 0; k < taskMonthYear.size(); k++)
-				System.out.println(taskMonthYear.get(k).getName());
 		}
 		return taskMonthYear.iterator();
 	}

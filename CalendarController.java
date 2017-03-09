@@ -121,8 +121,6 @@ public class CalendarController {//extends Observer {
 		 }
 	}
 
-
-
 	public void addNewTask(Task tempoTask) 
 	{
 		String day = view.getDaylbl(),
