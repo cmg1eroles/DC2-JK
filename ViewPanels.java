@@ -81,19 +81,21 @@ public abstract class ViewPanels extends PanelFactory {
 		int dayRow = eventTable.getSelectedRow();
 		try {
 			String oldDay = (String)modelViewTable.getValueAt(dayRow, dayCol);
-			String actualTask = oldDay.contains("text-decoration:line-through;") 
-								? oldDay.replaceAll("<html><font color='green' style='text-decoration:line-through;'>", "")
-								: oldDay.replaceAll("<html><font color='green'>", "");
-			actualTask = actualTask.replaceAll("</font></html>", "");
 			Iterator dayIterator = controller.getTasks(false);
 			if (dayIterator.hasNext()) {
 				for (Iterator it=dayIterator; it.hasNext();) {
 					Task t = (Task)it.next();
+					String pangReplace = "<html><font color='" + t.getStrColor() + "'";
+					String actualTask = oldDay.contains("text-decoration:line-through;") 
+										? oldDay.replaceAll(pangReplace + " style='text-decoration:line-through;'>", "")
+										: oldDay.replaceAll(pangReplace + ">", "");
+					actualTask = actualTask.replaceAll("</font></html>", "");
 					int j = 0;
 					if (t.getName().equals(actualTask) && t.getType() == Type.TO_DO) {
 						oldDay = oldDay.contains("text-decoration:line-through;")
-								 ? oldDay.replaceAll("<font color='green' style='text-decoration:line-through;'>", "<font color='green'>")
-								 : oldDay.replaceAll("<font color='green'>", "<font color='green' style='text-decoration:line-through;'>");
+								 ? oldDay.replaceAll(pangReplace.substring(7) + " style='text-decoration:line-through;'>", pangReplace.substring(7) + ">")
+								 : oldDay.replaceAll(pangReplace.substring(7) + ">", pangReplace.substring(7) + " style='text-decoration:line-through;'>");
+						oldDay = oldDay + "</font></html>";
 						modelViewTable.setValueAt(oldDay, dayRow, dayCol);
 						t.setDone(!t.getDone());
 					}

@@ -41,8 +41,10 @@ public class CalendarModel {//extends Observer{
 
 	public void deleteTD() {
 		for(int i=0;i<allTasks.size();i++) {
-			if(allTasks.get(i).getDone())
+			if(allTasks.get(i).getDone())  {
 				allTasks.remove(i);
+				i--;
+			}
 		}
 	}
 
